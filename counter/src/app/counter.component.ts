@@ -4,9 +4,13 @@ import { Component } from '@angular/core';
   selector: 'app-counter',
   template: `
   <div class="container">
-     <button class="increase" (click)="increase(num)">+</button>
-     <div class="counter">{{num}}</div>
-     <button class="decrease" (click)="decrease(num)">-</button>
+     <app-increase
+     (plus)="increase($event)"
+     ></app-increase>
+     <div class="counter">{{Count}}</div>
+     <app-decrease
+     (minus)="decrease($event)"
+     ></app-decrease>
   </div>
   `,
   styles: [` .container {
@@ -19,29 +23,23 @@ import { Component } from '@angular/core';
     color: #3f51b5;
   }
 
-  button {
-    padding: 5px 10px;
-    font-size: 24px;
-    border-radius: 5px;
-    color: #3f51b5;
-    border-color: #3f51b5;
-    outline: none;
-    cursor: pointer;
-  }
-
   .counter {
     width: 50px;
     text-align: center;
   }`]
 })
 export class CounterComponent {
-  num: number = 0;
+  private count = 0;
 
-  increase(count: number) {
-    this.num = ++count;
+  increase() {
+    return ++this.count;
   }
 
-  decrease(count: number) {
-    this.num = count ? --count : 0;
+  decrease() {
+    return this.count ? --this.count : 0;
+  }
+
+  get Count() {
+    return this.count;
   }
 }
